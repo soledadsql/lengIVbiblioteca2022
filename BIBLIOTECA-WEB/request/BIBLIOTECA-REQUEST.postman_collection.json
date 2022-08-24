@@ -1,0 +1,212 @@
+{
+	"info": {
+		"_postman_id": "610dc28a-5bd4-4cfa-ae74-c77f59ed65ac",
+		"name": "BIBLIOTECA-REQUEST",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "22777817"
+	},
+	"item": [
+		{
+			"name": "New Request",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "autores.consultar",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8082/BIBLIOTECA-WEB/rest/autor/consultar",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"BIBLIOTECA-WEB",
+						"rest",
+						"autor",
+						"consultar"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "autores.consultar_por_nombre",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8082/BIBLIOTECA-WEB/rest/autor/consultar-por-nombre?nombreQP=Pepe",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"BIBLIOTECA-WEB",
+						"rest",
+						"autor",
+						"consultar-por-nombre"
+					],
+					"query": [
+						{
+							"key": "nombreQP",
+							"value": "Pepe"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "autores.buscar-por-codigo",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8082/BIBLIOTECA-WEB/rest/autor/buscar-por-codigo?codigoQP=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"BIBLIOTECA-WEB",
+						"rest",
+						"autor",
+						"buscar-por-codigo"
+					],
+					"query": [
+						{
+							"key": "codigoQP",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "autores.incluir",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"codigo\": null,\r\n    \"nombre\": \"Juana de Lara\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8082/BIBLIOTECA-WEB/rest/autor/incluir",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"BIBLIOTECA-WEB",
+						"rest",
+						"autor",
+						"incluir"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "autores.editar",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"codigo\": null,\r\n    \"nombre\": \"Juana de Lara\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8082/BIBLIOTECA-WEB/rest/autor/editar",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"BIBLIOTECA-WEB",
+						"rest",
+						"autor",
+						"editar"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "autores.actualizar",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"codigo\": 1,\r\n    \"nombre\": \"Juan Augusto Gonzalez\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8082/BIBLIOTECA-WEB/rest/autor/actualizar",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"BIBLIOTECA-WEB",
+						"rest",
+						"autor",
+						"actualizar"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "autores.eliminar",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8082/BIBLIOTECA-WEB/rest/autor/eliminar/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"BIBLIOTECA-WEB",
+						"rest",
+						"autor",
+						"eliminar",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
