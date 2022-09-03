@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -18,14 +20,18 @@ public class Cliente {
 	@Column(name="cli_nombre")
 	private String nombre;
 	
-	@Column(name="cli_ciudad")
-	private String ciudad;
+	//@Column(name="cli_ciudad")
+	//private String ciudad;
 	
 	@Column(name="cli_direccion")
 	private String direccion;
 	
 	@Column(name="cli_obs")
 	private String obs;
+	
+	@ManyToOne
+	@JoinColumn(name = "cli_ciudad")
+	private Ciudad ciudad;
 
 	public Cliente() {
 		super();
@@ -47,11 +53,11 @@ public class Cliente {
 		this.nombre = nombre;
 	}
 
-	public String getCiudad() {
+	public Ciudad getCiudad() {
 		return ciudad;
 	}
 
-	public void setCiudad(String ciudad) {
+	public void setCiudad(Ciudad ciudad) {
 		this.ciudad = ciudad;
 	}
 

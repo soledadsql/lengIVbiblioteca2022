@@ -17,6 +17,9 @@ public class Ciudad {
 	
 	@Column(name="ciu_descripcion")
 	private String descripcion;
+	
+	//@OneToMany //siempre es list, porque many devuelve mucho
+//	private List<Autor> autores;
 
 	public Ciudad() {
 		super();
