@@ -1,4 +1,4 @@
-package com.biblioteca.session;
+package com.biblioteca.abm.session;
 
 import java.util.List;
 
@@ -12,11 +12,11 @@ import com.biblioteca.entidad.Libro;
 @Stateless
 public class LibroSession {
 
-	@PersistenceContext(name="BibliotecaPU")
+	@PersistenceContext(name = "BibliotecaPU")
 	EntityManager em;
 
 	// Consultar todos los libros
-	public List<Libro> consultarLibro() {
+	public List<Libro> consultarLibros() {
 		String jpql = "SELECT a FROM Libro a ORDER BY a.codigo";
 
 		Query q = em.createQuery(jpql);
@@ -43,6 +43,7 @@ public class LibroSession {
 	}
 
 	public Libro incluir(Libro libro) {
+		libro.setCodigo(null);
 		em.persist(libro);// insertar
 		em.refresh(libro);// consulta el dato insertado
 		return libro;
@@ -53,7 +54,7 @@ public class LibroSession {
 		return libro;
 	}
 
-	private Libro actualizar(Libro libro) {
+	public Libro actualizar(Libro libro) {
 		Libro libroActualizado = null;
 		Libro libroBuscar = buscarPorCodigo(libro.getCodigo());
 		if (libroBuscar == null) {
@@ -65,8 +66,10 @@ public class LibroSession {
 	}
 
 	public void eliminar(Integer codigo) {
-		em.remove(codigo);
-		// return null;
+		Libro buscarLibro = em.find(Libro.class, codigo);
+		if (buscarLibro != null) {
+			em.remove(buscarLibro);
+		}
 	}
 
 }

@@ -1,42 +1,55 @@
 package com.biblioteca.entidad;
 
-import javax.persistence.Column;
+import java.io.Serializable;
+
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="libros_autores")
-public class LibroAutor {
-	@Id
-	@GeneratedValue(strategy= GenerationType.IDENTITY) 
-	@Column(name="lau_libro")
-	private Integer codLibro;
-	
-	@Column(name="lau_autor")
-	private Integer codAutor;
+@Table(name = "libros_autores")
+public class LibroAutor implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+
+	@EmbeddedId
+	LibroAutorPK id;
+
+	@ManyToOne
+	@JoinColumn(name = "lau_libro", insertable = false, updatable = false)
+	private Libro libro;
+
+	@ManyToOne
+	@JoinColumn(name = "lau_autor", insertable = false, updatable = false)
+	private Autor autor;
 
 	public LibroAutor() {
-		super();
 	}
 
-	public Integer getCodLibro() {
-		return codLibro;
+	public LibroAutorPK getId() {
+		return id;
 	}
 
-	public void setCodLibro(Integer codLibro) {
-		this.codLibro = codLibro;
+	public void setId(LibroAutorPK id) {
+		this.id = id;
 	}
 
-	public Integer getCodAutor() {
-		return codAutor;
+	public Libro getLibro() {
+		return libro;
 	}
 
-	public void setCodAutor(Integer codAutor) {
-		this.codAutor = codAutor;
+	public void setLibro(Libro libro) {
+		this.libro = libro;
 	}
-	
-	
+
+	public Autor getAutor() {
+		return autor;
+	}
+
+	public void setAutor(Autor autor) {
+		this.autor = autor;
+	}
+
 }

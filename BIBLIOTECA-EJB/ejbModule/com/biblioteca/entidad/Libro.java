@@ -1,5 +1,7 @@
 package com.biblioteca.entidad;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,23 +11,24 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "libros")
-public class Libro {
+public class Libro implements Serializable {
+	private static final long serialVersionUID = 1L;
+
 	@Id
-	@GeneratedValue(strategy= GenerationType.IDENTITY) 
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "lib_codigo")
 	private Integer codigo;
-	
-	@Column(name="lib_descripcion")
+
+	@Column(name = "lib_descripcion")
 	private String descripcion;
-	
-	@Column(name="lib_cantidad")
+
+	@Column(name = "lib_cantidad")
 	private Integer cantidad;
-	
-	@Column(name="obs")
+
+	@Column(name = "lib_obs")
 	private String obs;
 
 	public Libro() {
-		super();
 	}
 
 	public Integer getCodigo() {
@@ -59,7 +62,5 @@ public class Libro {
 	public void setObs(String obs) {
 		this.obs = obs;
 	}
-	
-	
 
 }

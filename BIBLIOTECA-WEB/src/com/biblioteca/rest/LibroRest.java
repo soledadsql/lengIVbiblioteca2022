@@ -13,14 +13,15 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
-import com.biblioteca.abm.session.AutorSession;
-import com.biblioteca.entidad.Autor;
+import com.biblioteca.abm.session.LibroSession;
+import com.biblioteca.entidad.Libro;
 
-@Path("/autor")
-public class AutorRest {
 
+@Path("/libro")
+public class LibroRest {
+	
 	@EJB
-	AutorSession as;
+	LibroSession ls;
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
@@ -29,25 +30,22 @@ public class AutorRest {
 		Map<String, Object> retorno = new HashMap<String, Object>();
 		try {
 			retorno.put("success", true);
-			retorno.put("autor", as.consultarAutores());
+			retorno.put("libro",ls.consultarLibros());
 		} catch (Exception e) {
 			retorno.put("error", e.getMessage());
 			retorno.put("success", false);
 		}
 		return retorno;
 	}
-
+	
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/consultar-por-nombre")
-	// Parametros: """QueryParam""" (p/ valores simples, directos, enteros,
-	// string..), PathParam, BodyParam
-	// http://localhost:8082/BIBLIOTECA-WEB/rest/Autor/consultar-por-nombre?nombre=Ana
-	public Map<String, Object> consultarPorNombre(@QueryParam("nombreQP") String nombre) {
+	public Map<String, Object> consultarPorNombre(@QueryParam("nombreQP") String descripcion) {
 		Map<String, Object> retorno = new HashMap<String, Object>();
 		try {
 			retorno.put("success", true);
-			retorno.put("autor", as.consultarAutoresPorNombre(nombre));
+			retorno.put("libro", ls.consultarLibrosPorNombre(descripcion));
 		} catch (Exception e) {
 			retorno.put("error", e.getMessage());
 			retorno.put("success", false);
@@ -62,7 +60,7 @@ public class AutorRest {
 		Map<String, Object> retorno = new HashMap<String, Object>();
 		try {
 			retorno.put("success", true);
-			retorno.put("autor", as.buscarPorCodigo(codigo));
+			retorno.put("libro", ls.buscarPorCodigo(codigo));
 		} catch (Exception e) {
 			retorno.put("error", e.getMessage());
 			retorno.put("success", false);
@@ -73,12 +71,11 @@ public class AutorRest {
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/incluir")
-	// BodyParam
-	public Map<String, Object> incluir(Autor autor) {
+	public Map<String, Object> incluir(Libro libro) {
 		Map<String, Object> retorno = new HashMap<String, Object>();
 		try {
 			retorno.put("success", true);
-			retorno.put("autor", as.incluir(autor));
+			retorno.put("libro", ls.incluir(libro));
 		} catch (Exception e) {
 			retorno.put("error", e.getMessage());
 			retorno.put("success", false);
@@ -90,11 +87,11 @@ public class AutorRest {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/editar")
 	// BodyParam
-	public Map<String, Object> editar(Autor autor) {
+	public Map<String, Object> editar(Libro libro) {
 		Map<String, Object> retorno = new HashMap<String, Object>(); // {}
 		try {
 			retorno.put("success", true);
-			retorno.put("autor", as.editar(autor));
+			retorno.put("libro", ls.editar(libro));
 		} catch (Exception e) {
 			retorno.put("error", e.getMessage());
 			retorno.put("success", false);
@@ -105,12 +102,11 @@ public class AutorRest {
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/actualizar")
-	// BodyParam
-	public Map<String, Object> actualizar(Autor autor) {
+	public Map<String, Object> actualizar(Libro libro) {
 		Map<String, Object> retorno = new HashMap<String, Object>(); // {}
 		try {
 			retorno.put("success", true);
-			retorno.put("autor", as.actualizar(autor));
+			retorno.put("libro", ls.actualizar(libro));
 		} catch (Exception e) {
 			retorno.put("error", e.getMessage());
 			retorno.put("success", false);
@@ -118,22 +114,14 @@ public class AutorRest {
 		return retorno;
 	}
 
-/*	@DELETE
-	@Path("/eliminar/{id}")
-	// PathParam
-	public void eliminarv1(@PathParam("id") Integer codigo) {
-		as.eliminar(codigo);
-	}*/
-	
-	@DELETE	
+	@DELETE
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/eliminar/{id}")
-	// PathParam
 	public Map<String, Object> eliminar(@PathParam("id") Integer codigo) {
 		Map<String, Object> retorno = new HashMap<String, Object>(); 
 		try {
 			retorno.put("success", true);
-			as.eliminar(codigo);
+			ls.eliminar(codigo);
 		} catch (Exception e) {
 			retorno.put("error", e.getMessage());
 			retorno.put("success", false);
@@ -141,7 +129,4 @@ public class AutorRest {
 		return retorno;
 	}
 
-	// Tarea para hoy: implementar editar, actualizar, buscarPorCodigo
-	// Implementar formato de respuesta estandar via MAP como se hizo en consultar
-	// por nombre - Para la otra semana
 }

@@ -1,4 +1,4 @@
-package com.biblioteca.session;
+package com.biblioteca.abm.session;
 
 import java.util.List;
 
@@ -12,7 +12,7 @@ import com.biblioteca.entidad.Ciudad;
 @Stateless
 public class CiudadSession {
 
-	@PersistenceContext(name="BibliotecaPU")
+	@PersistenceContext(name = "BibliotecaPU")
 	EntityManager em;
 
 	// Consultar todas las ciudades
@@ -43,6 +43,7 @@ public class CiudadSession {
 	}
 
 	public Ciudad incluir(Ciudad ciudad) {
+		ciudad.setCodigo(null);
 		em.persist(ciudad);// insertar
 		em.refresh(ciudad);// consulta el dato insertado
 		return ciudad;
@@ -54,7 +55,7 @@ public class CiudadSession {
 	}
 
 	// incluye o edita una ciudad dependiendo si existe o no
-	private Ciudad actualizar(Ciudad ciudad) {
+	public Ciudad actualizar(Ciudad ciudad) {
 		Ciudad ciudadActualizado = null;
 		Ciudad ciudadBuscar = buscarPorCodigo(ciudad.getCodigo());
 		if (ciudadBuscar == null) {
@@ -66,7 +67,9 @@ public class CiudadSession {
 	}
 
 	public void eliminar(Integer codigo) {
-		em.remove(codigo);
-		// return null;
+		Ciudad ciudadBuscar = em.find(Ciudad.class, codigo);
+		if (ciudadBuscar != null) {
+			em.remove(ciudadBuscar);
+		}
 	}
 }

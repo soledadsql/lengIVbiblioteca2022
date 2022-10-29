@@ -1,4 +1,4 @@
-package com.biblioteca.session;
+package com.biblioteca.abm.session;
 
 import java.util.HashMap;
 import java.util.List;
@@ -108,7 +108,9 @@ public class AutorSession {
 		//falta validar que pasa si se quiere eliminar codigo que no existe
 		//{success:false, error:"Autor con #4 no existe"}
 		Autor autorBuscar = em.find(Autor.class, codigo);
-		em.remove(autorBuscar);
+		if (autorBuscar!=null) {
+			em.remove(autorBuscar);
+		}
 		// return null;
 	}
 }

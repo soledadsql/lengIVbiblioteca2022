@@ -1,5 +1,7 @@
 package com.biblioteca.entidad;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,31 +12,32 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="clientes")
-public class Cliente {
+@Table(name = "clientes")
+public class Cliente implements Serializable {
+	private static final long serialVersionUID = 1L;
+
 	@Id
-	@GeneratedValue(strategy= GenerationType.IDENTITY) 
-	@Column(name="cli_codigo")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "cli_codigo")
 	private Integer codigo;
-	
-	@Column(name="cli_nombre")
+
+	@Column(name = "cli_nombre")
 	private String nombre;
-	
-	//@Column(name="cli_ciudad")
-	//private String ciudad;
-	
-	@Column(name="cli_direccion")
+
+	// @Column(name="cli_ciudad")
+	// private String ciudad;
+
+	@Column(name = "cli_direccion")
 	private String direccion;
-	
-	@Column(name="cli_obs")
+
+	@Column(name = "cli_obs")
 	private String obs;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "cli_ciudad")
 	private Ciudad ciudad;
 
 	public Cliente() {
-		super();
 	}
 
 	public Integer getCodigo() {
@@ -76,5 +79,5 @@ public class Cliente {
 	public void setObs(String obs) {
 		this.obs = obs;
 	}
-	
+
 }

@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.ejb.EJB;
-import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -13,14 +12,14 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
-import com.biblioteca.abm.session.AutorSession;
-import com.biblioteca.entidad.Autor;
+import com.biblioteca.entidad.Prestamo;
+import com.biblioteca.mov.session.PrestamoSession;
 
-@Path("/autor")
-public class AutorRest {
 
+@Path("/prestamo")
+public class PrestamoRest {
 	@EJB
-	AutorSession as;
+	PrestamoSession ps;
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
@@ -29,25 +28,22 @@ public class AutorRest {
 		Map<String, Object> retorno = new HashMap<String, Object>();
 		try {
 			retorno.put("success", true);
-			retorno.put("autor", as.consultarAutores());
+			retorno.put("prestamo",ps.consultarPrestamos());
 		} catch (Exception e) {
 			retorno.put("error", e.getMessage());
 			retorno.put("success", false);
 		}
 		return retorno;
 	}
-
+	
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/consultar-por-nombre")
-	// Parametros: """QueryParam""" (p/ valores simples, directos, enteros,
-	// string..), PathParam, BodyParam
-	// http://localhost:8082/BIBLIOTECA-WEB/rest/Autor/consultar-por-nombre?nombre=Ana
 	public Map<String, Object> consultarPorNombre(@QueryParam("nombreQP") String nombre) {
 		Map<String, Object> retorno = new HashMap<String, Object>();
 		try {
 			retorno.put("success", true);
-			retorno.put("autor", as.consultarAutoresPorNombre(nombre));
+			retorno.put("prestamo", ps.consultarPrestamosPorNombreCliente(nombre));
 		} catch (Exception e) {
 			retorno.put("error", e.getMessage());
 			retorno.put("success", false);
@@ -62,7 +58,7 @@ public class AutorRest {
 		Map<String, Object> retorno = new HashMap<String, Object>();
 		try {
 			retorno.put("success", true);
-			retorno.put("autor", as.buscarPorCodigo(codigo));
+			retorno.put("prestamo", ps.buscarPorCodigo(codigo));
 		} catch (Exception e) {
 			retorno.put("error", e.getMessage());
 			retorno.put("success", false);
@@ -73,12 +69,11 @@ public class AutorRest {
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/incluir")
-	// BodyParam
-	public Map<String, Object> incluir(Autor autor) {
+	public Map<String, Object> incluir(Prestamo prestamo) {
 		Map<String, Object> retorno = new HashMap<String, Object>();
 		try {
 			retorno.put("success", true);
-			retorno.put("autor", as.incluir(autor));
+			retorno.put("prestamo", ps.incluir(prestamo));
 		} catch (Exception e) {
 			retorno.put("error", e.getMessage());
 			retorno.put("success", false);
@@ -89,12 +84,11 @@ public class AutorRest {
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/editar")
-	// BodyParam
-	public Map<String, Object> editar(Autor autor) {
-		Map<String, Object> retorno = new HashMap<String, Object>(); // {}
+	public Map<String, Object> editar(Prestamo prestamo) {
+		Map<String, Object> retorno = new HashMap<String, Object>();
 		try {
 			retorno.put("success", true);
-			retorno.put("autor", as.editar(autor));
+			retorno.put("prestamo", ps.editar(prestamo));
 		} catch (Exception e) {
 			retorno.put("error", e.getMessage());
 			retorno.put("success", false);
@@ -105,12 +99,11 @@ public class AutorRest {
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/actualizar")
-	// BodyParam
-	public Map<String, Object> actualizar(Autor autor) {
-		Map<String, Object> retorno = new HashMap<String, Object>(); // {}
+	public Map<String, Object> actualizar(Prestamo prestamo) {
+		Map<String, Object> retorno = new HashMap<String, Object>();
 		try {
 			retorno.put("success", true);
-			retorno.put("autor", as.actualizar(autor));
+			retorno.put("prestamo", ps.actualizar(prestamo));
 		} catch (Exception e) {
 			retorno.put("error", e.getMessage());
 			retorno.put("success", false);
@@ -118,30 +111,19 @@ public class AutorRest {
 		return retorno;
 	}
 
-/*	@DELETE
-	@Path("/eliminar/{id}")
-	// PathParam
-	public void eliminarv1(@PathParam("id") Integer codigo) {
-		as.eliminar(codigo);
-	}*/
-	
-	@DELETE	
+	@POST
 	@Produces(MediaType.APPLICATION_JSON)
-	@Path("/eliminar/{id}")
-	// PathParam
-	public Map<String, Object> eliminar(@PathParam("id") Integer codigo) {
-		Map<String, Object> retorno = new HashMap<String, Object>(); 
+	@Path("/anular/{id}")
+	public Map<String, Object> anular(@PathParam("id") Integer codigo) {
+		Map<String, Object> retorno = new HashMap<String, Object>();
 		try {
 			retorno.put("success", true);
-			as.eliminar(codigo);
+			retorno.put("prestamo", ps.anular(codigo));
 		} catch (Exception e) {
 			retorno.put("error", e.getMessage());
 			retorno.put("success", false);
 		}
 		return retorno;
 	}
-
-	// Tarea para hoy: implementar editar, actualizar, buscarPorCodigo
-	// Implementar formato de respuesta estandar via MAP como se hizo en consultar
-	// por nombre - Para la otra semana
+	
 }

@@ -1,4 +1,4 @@
-package com.biblioteca.session;
+package com.biblioteca.abm.session;
 
 import java.util.List;
 
@@ -8,7 +8,6 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import com.biblioteca.entidad.Cliente;
-
 @Stateless
 public class ClienteSession {
 
@@ -43,6 +42,7 @@ public class ClienteSession {
 	}
 
 	public Cliente incluir(Cliente cliente) {
+		cliente.setCodigo(null);
 		em.persist(cliente);// insertar
 		em.refresh(cliente);// consulta el dato insertado
 		return cliente;
@@ -54,7 +54,7 @@ public class ClienteSession {
 	}
 
 	// incluye o edita un cliente dependiendo si existe o no
-	private Cliente actualizar(Cliente cliente) {
+	public Cliente actualizar(Cliente cliente) {
 		Cliente clienteActualizado = null;
 		Cliente clienteBuscar = buscarPorCodigo(cliente.getCodigo());
 		if (clienteBuscar == null) {
@@ -66,8 +66,10 @@ public class ClienteSession {
 	}
 
 	public void eliminar(Integer codigo) {
-		em.remove(codigo);
-		// return null;
+		Cliente clienteBuscar = em.find(Cliente.class, codigo);
+		if (clienteBuscar != null) {
+		em.remove(clienteBuscar);
+		}
 	}
 
 }
