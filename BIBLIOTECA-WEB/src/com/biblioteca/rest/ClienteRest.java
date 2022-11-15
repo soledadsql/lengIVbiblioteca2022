@@ -43,7 +43,7 @@ public class ClienteRest {
 	public Map<String, Object> consultarPorNombre(@QueryParam("nombreQP") String nombre) {
 		Map<String, Object> retorno = new HashMap<String, Object>();
 		try {
-			retorno.put("success", true);
+			retorno.put("successs", true);
 			retorno.put("cliente", cs.consultarClientesPorNombre(nombre));
 		} catch (Exception e) {
 			retorno.put("error", e.getMessage());
